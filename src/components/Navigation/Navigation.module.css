@@ -1,0 +1,33 @@
+.navigationUl {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.navigationUl li {
+  margin: 0 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #666;
+}
+
+.active {
+  composes: link;
+  color: #007bff;
+  font-weight: 700;
+  border-bottom: 2px solid #007bff;
+}
