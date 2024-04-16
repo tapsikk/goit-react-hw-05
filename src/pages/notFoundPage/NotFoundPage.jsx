@@ -8,7 +8,7 @@ const NotFound = () => {
   return (
     <Section>
       <Container>
-        <Heading title="NotFound" bottom />
+        <Heading title="Not Found" bottom />
         <p>Go to the <Link to='/'>Home</Link>.</p>
       </Container>
     </Section>

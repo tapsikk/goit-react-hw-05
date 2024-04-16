@@ -6,9 +6,9 @@ import { Header } from "./components/Header/Header/Header";
 
 
 const Home = lazy(() => import("./pages/homePage/Home"));
-const MoviesPage = lazy(() => import("pages/moviesPage/Movies"));
-const NotFoundPage = lazy(() => import("pages/notFound/NotFound"));
-// const MoviesPageDetails = lazy(() => import("pages/Home"));
+const MoviesDetails = lazy(() => import("pages/moviesDetailsPage/MoviesDetails"));
+const NotFoundPage = lazy(() => import("pages/notFoundPage/NotFoundPage"));
+const Movies = lazy(() => import("pages/moviesPage/Movies"));
 
 const App = () => {
   return (
@@ -17,8 +17,8 @@ const App = () => {
       <Suspense fallback={<div>Loading page...</div>}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        {/* <Route path="/movies/:id" element={<MoviesPageDetails />} /> */}
+        <Route path="/movies/:id" element={<MoviesDetails />} />
+        <Route path="/movies/" element={<Movies />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </Suspense>
