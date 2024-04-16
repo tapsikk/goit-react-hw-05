@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, NavLink } from "react-router-dom"; // Добавляем NavLink
+import { useSearchParams, NavLink } from "react-router-dom";
 import { fetchMoviesSearch } from "/src/components/service/MoviesApi";
 import { SearchBox } from "/src/components/SearchBox/SearchBox";
 
 export default function Products() {
-  const [movies, setMovies] = useState([]); // Хранение списка фильмов
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const movieName = searchParams.get("name") ?? "";
 
@@ -31,7 +31,6 @@ export default function Products() {
       <ul>
         {movies.map((movie) => (
           <li key={movie.id}>
-            {/* Добавляем NavLink вокруг названия фильма */}
             <NavLink to={`/movies/${movie.id}`}>{movie.title}</NavLink>
           </li>
         ))}
