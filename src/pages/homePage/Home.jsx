@@ -37,7 +37,7 @@ const Home = () => {
           <ul>
             {movies.map((movie) => (
               <li key={movie.id}>
-                <NavLink to={`/movies/${movie.id}`} activeClassName="active-link">
+                <NavLink to={`/movies/${movie.id}`}>
                   {movie.title}
                 </NavLink>
               </li>

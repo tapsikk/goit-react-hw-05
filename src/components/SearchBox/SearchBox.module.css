@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   position: relative;
-  margin-bottom: 16px;
+  margin: 16px;
   text-transform: uppercase;
 }
 

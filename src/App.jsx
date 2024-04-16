@@ -6,7 +6,7 @@ import { Header } from "./components/Header/Header/Header";
 
 const Home = lazy(() => import("./pages/homePage/Home"));
 const MoviesDetails = lazy(() =>
-  import("pages/moviesDetailsPage/MoviesDetails")
+import("pages/moviesDetailsPage/MoviesDetails")
 );
 const NotFoundPage = lazy(() => import("pages/notFoundPage/NotFoundPage"));
 const Movies = lazy(() => import("pages/moviesPage/Movies"));
