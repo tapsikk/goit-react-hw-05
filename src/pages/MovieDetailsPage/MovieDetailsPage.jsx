@@ -1,5 +1,9 @@
-import { useParams, useLocation, NavLink } from "react-router-dom";
-import { fetchMoviesDetails, fetchMoviesCredits, fetchMoviesReviews } from "/src/components/service/MoviesApi";
+import { useParams, useLocation, NavLink, Link } from "react-router-dom";
+import {
+  fetchMoviesDetails,
+  fetchMoviesCredits,
+  fetchMoviesReviews,
+} from "/src/components/service/MoviesApi";
 import { useEffect, useState, useRef } from "react";
 import MovieCast from "/src/components/MovieCast/MovieCast";
 import MovieReviews from "/src/components/MovieReviews/MovieReviews";
@@ -7,7 +11,8 @@ import "./MoviesDetails.css";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const prevLocation = useRef();
+  const location = useLocation();
+  const prevLocation = useRef(location.state?.from || "/movies");
   const [movie, setMovie] = useState(null);
   const [credits, setCredits] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -35,10 +40,6 @@ const MovieDetails = () => {
     fetchMovieData();
   }, [movieId]);
 
-  useEffect(() => {
-    prevLocation.current = window.location;
-  }, []);
-
   const handleToggleCast = () => {
     setShowCast(!showCast);
     setShowReviews(false);
@@ -53,13 +54,20 @@ const MovieDetails = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!movie || !credits || !reviews) return null;
 
-  const { title, release_date, vote_average, genres, poster_path, overview } = movie;
+  const { title, release_date, vote_average, genres, poster_path, overview } =
+    movie;
 
   return (
     <div className="movie-details">
+      <div className="movie-back">
+        <Link to={prevLocation.current}>Back</Link>
+      </div>
       <div className="movie-total">
         <div className="movie-poster">
-          <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} />
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            alt={title}
+          />
         </div>
         <div className="info-movies">
           <h1>
@@ -81,7 +89,9 @@ const MovieDetails = () => {
         </NavLink>
       </div>
       {showCast && <MovieCast cast={credits.cast} />}
-      {showReviews && <MovieReviews reviews={reviews} location={prevLocation.current} />}
+      {showReviews && (
+        <MovieReviews reviews={reviews} location={prevLocation.current} />
+      )}
     </div>
   );
 };
