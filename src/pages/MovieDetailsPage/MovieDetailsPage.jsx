@@ -1,13 +1,13 @@
 import { useParams, useLocation, NavLink } from "react-router-dom";
 import { fetchMoviesDetails, fetchMoviesCredits, fetchMoviesReviews } from "/src/components/service/MoviesApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MovieCast from "/src/components/MovieCast/MovieCast";
 import MovieReviews from "/src/components/MovieReviews/MovieReviews";
 import "./MoviesDetails.css";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const location = useLocation();
+  const prevLocation = useRef();
   const [movie, setMovie] = useState(null);
   const [credits, setCredits] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -34,6 +34,10 @@ const MovieDetails = () => {
     };
     fetchMovieData();
   }, [movieId]);
+
+  useEffect(() => {
+    prevLocation.current = window.location;
+  }, []);
 
   const handleToggleCast = () => {
     setShowCast(!showCast);
@@ -77,7 +81,7 @@ const MovieDetails = () => {
         </NavLink>
       </div>
       {showCast && <MovieCast cast={credits.cast} />}
-      {showReviews && <MovieReviews reviews={reviews} location={location} />}
+      {showReviews && <MovieReviews reviews={reviews} location={prevLocation.current} />}
     </div>
   );
 };
