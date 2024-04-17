@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useSearchParams, NavLink } from "react-router-dom";
 import { fetchMoviesSearch } from "/src/components/service/MoviesApi";
 import { SearchBox } from "/src/components/SearchBox/SearchBox";
+import MovieList from "/src/components/MovieList/MovieList.jsx";
 
-export default function Products() {
+const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const movieName = searchParams.get("name") ?? "";
@@ -28,13 +29,9 @@ export default function Products() {
   return (
     <main>
       <SearchBox value={movieName} onChange={updateQueryString} />
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <NavLink to={`/movies/${movie.id}`}>{movie.title}</NavLink>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </main>
   );
-}
+};
+
+export default MoviesPage;

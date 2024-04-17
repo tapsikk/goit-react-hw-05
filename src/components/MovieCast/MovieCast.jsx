@@ -4,7 +4,7 @@ import { fetchMoviesCredits } from '/src/components/service/MoviesApi';
 // import styles from './MovieCast.module.css';
 
 const MovieCast = () => {
-  const { id: movieId } = useParams();
+  const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
