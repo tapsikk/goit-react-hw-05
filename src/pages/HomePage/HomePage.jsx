@@ -4,6 +4,7 @@ import Heading from "../../components/Heading/Heading";
 import Section from "../../components/Section/Section";
 import { fetchMoviesTrending } from "/src/components/service/MoviesApi";
 import { NavLink } from "react-router-dom";
+import MovieList from "/src/components/MovieList/MovieList"
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -28,22 +29,9 @@ const Home = () => {
   return (
     <Section>
       <Container>
-        <Heading title="Trending Movies" bottom />
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error.message}</div>
-        ) : (
-          <ul>
-            {movies.map((movie) => (
-              <li key={movie.id}>
-                <NavLink to={`/movies/${movie.id}`}>
-                  {movie.title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        )}
+      <Heading title="Trending Movies" bottom />
+        {/* Включаємо компонент MovieList та передаємо йому список фільмів */}
+        <MovieList movies={movies} />
       </Container>
     </Section>
   );

@@ -1,6 +1,6 @@
-import { useParams, useLocation, Link, NavLink } from "react-router-dom";
+import { useParams, useLocation, NavLink } from "react-router-dom";
 import { fetchMoviesDetails, fetchMoviesCredits, fetchMoviesReviews } from "/src/components/service/MoviesApi";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import MovieCast from "/src/components/MovieCast/MovieCast";
 import MovieReviews from "/src/components/MovieReviews/MovieReviews";
 import "./MoviesDetails.css";
@@ -8,7 +8,6 @@ import "./MoviesDetails.css";
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const locationState = useRef(location.state);
   const [movie, setMovie] = useState(null);
   const [credits, setCredits] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -36,14 +35,6 @@ const MovieDetails = () => {
     fetchMovieData();
   }, [movieId]);
 
-
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!movie || !credits || !reviews) return null;
-
-  const { title, release_date, vote_average, genres, poster_path, overview } = movie;
-
   const handleToggleCast = () => {
     setShowCast(!showCast);
     setShowReviews(false);
@@ -53,6 +44,12 @@ const MovieDetails = () => {
     setShowReviews(!showReviews);
     setShowCast(false);
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!movie || !credits || !reviews) return null;
+
+  const { title, release_date, vote_average, genres, poster_path, overview } = movie;
 
   return (
     <div className="movie-details">
@@ -72,15 +69,15 @@ const MovieDetails = () => {
         </div>
       </div>
       <div className="buttons-container">
-        <NavLink onClick={handleToggleCast}>
+        <NavLink onClick={handleToggleCast} to="#">
           Cast
         </NavLink>
-        <NavLink onClick={handleToggleReviews}>
+        <NavLink onClick={handleToggleReviews} to="#">
           Reviews
         </NavLink>
       </div>
       {showCast && <MovieCast cast={credits.cast} />}
-      {showReviews && <MovieReviews reviews={reviews} location={locationState.current} />}
+      {showReviews && <MovieReviews reviews={reviews} location={location} />}
     </div>
   );
 };
